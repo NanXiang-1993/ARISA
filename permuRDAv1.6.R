@@ -32,12 +32,12 @@
 permuRDA <- function(Y, env, cond, 
                      cov = FALSE, CTRL = how(within = Within(type = "free"), plots = Plots(type = "free"), nperm=999),
                      pure = TRUE) {
-  if(pure == TRUE) {
+  if (pure == TRUE) {
     result <- data.frame(matrix(NA, ncol(env) + 1, 8))
     colnames(result) <- c("parameter", "Radj", "F", "df-N", "df-D", "p", "cov", "Res")
     envmm <- model.matrix(~., data = as.data.frame(env))[, -1]
     
-    if(cov == FALSE) {
+    if (cov == FALSE) {
       R <- rda(Y, envmm)
       result[nrow(result), 2] <- round(RsquareAdj(R)$adj.r.squared, 3)
       result[nrow(result), 8] <- round(1 - result[nrow(result), 2], 3)
@@ -59,7 +59,7 @@ permuRDA <- function(Y, env, cond,
       X <- env[, j]
       result[j, 1] <- colnames(env)[j]
       
-      if(cov == FALSE) {
+      if (cov == FALSE) {
         Z <- env[, -j]
       } else {
         Z <- data.frame(env[, -j], cond)
@@ -82,7 +82,7 @@ permuRDA <- function(Y, env, cond,
     return(result)
   }
   
-  if(pure == "FALSE"){
+  if (pure == "FALSE"){
     result <- data.frame(matrix(NA, ncol(env) + 1, 6))
     colnames(result) <- c("parameter", "Radj", "F", "df-N", "df-D", "p")
     envmm <- model.matrix(~., data = as.data.frame(env))[, -1]
